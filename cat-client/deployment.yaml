@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cat-client
+  labels:
+    app: cat-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cat-client
+  template:
+    metadata:
+      labels:
+        app: cat-client
+    spec:
+      containers:
+        - name: cat-client
+          image: aaronyunan/cat-client:14
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: k8s

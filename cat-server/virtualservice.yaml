@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: cat-server
+spec:
+  gateways:
+    - cat-gateway
+  hosts:
+    - "*"
+  http:
+    - name: cat-server
+      match:
+        - uri:
+            prefix: /cat-server
+      route:
+        - destination:
+            host: cat-server
+            port:
+              number: 8080

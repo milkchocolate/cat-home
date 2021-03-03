@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: keycloak
+  labels:
+    app: keycloak
+spec:
+  ports:
+  - name: http
+    port: 8080
+    targetPort: 8080
+  selector:
+    app: keycloak
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: keycloak-load-balancer
+spec:
+  type: LoadBalancer
+  selector:
+      app: keycloak
+  ports:
+    - port: 11001
+      targetPort: 8080

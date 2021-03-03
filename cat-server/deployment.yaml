@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cat-server
+  labels:
+    app: cat-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cat-server
+  template:
+    metadata:
+      labels:
+        app: cat-server
+    spec:
+      containers:
+        - name: cat-server
+          image: aaronyunan/cat-server:6
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
