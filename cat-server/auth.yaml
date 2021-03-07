@@ -1,0 +1,42 @@
+apiVersion: security.istio.io/v1beta1
+kind: RequestAuthentication
+metadata:
+  name: cat-server
+spec:
+  selector:
+    matchLabels:
+      app: cat-server
+  jwtRules:
+    - issuer: http://host.docker.internal:11001/auth/realms/master
+      jwksUri: http://host.docker.internal:11001/auth/realms/master/protocol/openid-connect/certs
+      outputPayloadToHeader: verified-jwt-payload
+---
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: cat-server
+spec:
+  selector:
+    matchLabels:
+      app: cat-server
+  rules:
+    - when:
+        - key: request.auth.claims[resource_access][cat-client][roles]
+          values: ["viewer"]
+      from:
+        - source:
+            principals: ["cluster.local/ns/default/sa/cat-client"]
+      to:
+        - operation:
+            methods: ["GET"]
+            paths: ["/cat-server/cats"]
+    - when:
+        - key: request.auth.claims[resource_access][cat-client][roles]
+          values: ["owner"]
+      from:
+        - source:
+            principals: ["cluster.local/ns/default/sa/cat-client"]
+      to:
+        - operation:
+            methods: ["POST"]
+            paths: ["/cat-server/cats"]
