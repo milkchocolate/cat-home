@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cat-server
+  name: cat-server-v2
   labels:
     app: cat-server
-    version: v1
+    version: v2
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: cat-server
-      version: v1
+      version: v2
   template:
     metadata:
       labels:
         app: cat-server
-        version: v1
+        version: v2
     spec:
       containers:
         - name: cat-server

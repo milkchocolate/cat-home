@@ -20,6 +20,13 @@ spec:
     matchLabels:
       app: cat-server
   rules:
+    - from:
+        - source:
+            principals: ["cluster.local/ns/default/sa/cat-client"]
+      to:
+        - operation:
+            methods: ["GET"]
+            paths: ["/cat-server/counter"]
     - when:
         - key: request.auth.claims[resource_access][cat-client][roles]
           values: ["viewer"]

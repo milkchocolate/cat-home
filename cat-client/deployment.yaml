@@ -17,7 +17,7 @@ spec:
       serviceAccountName: cat-client
       containers:
         - name: cat-client
-          image: aaronyunan/cat-client:14
+          image: aaronyunan/cat-client:16
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
