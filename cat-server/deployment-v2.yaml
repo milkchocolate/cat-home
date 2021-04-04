@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: cat-server
-          image: aaronyunan/cat-server:7
+          image: aaronyunan/cat-server:8
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
