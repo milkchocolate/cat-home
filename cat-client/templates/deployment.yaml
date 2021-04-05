@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cat-client
+  name: {{ .Chart.Name }}
   labels:
-    app: cat-client
+    app: {{ .Chart.Name }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: cat-client
+      app: {{ .Chart.Name }}
   template:
     metadata:
       labels:
-        app: cat-client
+        app: {{ .Chart.Name }}
     spec:
-      serviceAccountName: cat-client
+      serviceAccountName: {{ .Chart.Name }}
       containers:
-        - name: cat-client
-          image: aaronyunan/cat-client:17
-          imagePullPolicy: Always
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.repository }}:{{ .Values.tag }}"
+          imagePullPolicy: {{ .Values.pullPolicy }}
           ports:
             - containerPort: 8080
           env:
