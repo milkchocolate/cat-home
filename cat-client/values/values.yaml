@@ -1,4 +1,4 @@
 image:
   repository: aaronyunan/cat-client
-  tag: "27"
+  tag: "28"
   pullPolicy: Always
